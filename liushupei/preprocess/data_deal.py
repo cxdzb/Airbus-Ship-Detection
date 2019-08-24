@@ -1,10 +1,11 @@
 from PIL import Image
+import numpy as np
 
 
-def rle_to_mask(img, mask):
+def rle_to_array(img, mask):
     width, height = img.size
     img_copy = Image.new('L', (width, height))
-    data = img_copy.load()
+    pixdata = img_copy.load()
 
     mask = mask.split(' ')
     masks = []
@@ -16,9 +17,21 @@ def rle_to_mask(img, mask):
     for i in range(width):
         for j in range(height):
             if index < len(masks) and i * height + j == masks[index]:
-                data[i, j] = 1
+                pixdata[i, j] = 1
                 index += 1
             else:
-                data[i, j] = 0
+                pixdata[i, j] = 0
 
-    return [img,img_copy]
+    data1, data2 = img.getdata(), img_copy.getdata()
+    data1, data2 = np.asarray(data1).reshape((768, 768, 3)), np.asarray(data2).reshape((768, 768, 1))
+    return [data1, data2]
+
+
+def array_to_image(array, shape):
+    img = Image.new('RGB', (shape[0], shape[1]))
+    pixdata = img.load()
+    for i in range(shape[0]):
+        for j in range(shape[1]):
+            pixdata[i, j] = tuple(array[j][i])
+
+    img.show()
