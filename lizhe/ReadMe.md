@@ -8,3 +8,9 @@
 1、和组员讨论了之后的项目规划，完善了[第一次汇报](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/relevent/汇报一1.2.pptx)的ppt<br>
 2、实现了RLE（run-length）的解码，并成功利用掩码将标签可视化<br>
 * [RLE](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/ship-detection/RLE.ipynb) 
+### 2019.08.24
+1、学习了pandas表格数据处理的相关知识，实现了表格数据可视化<br>
+* [pandas-groupby](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/ship-detection/Bonus/Pandas-Groupby.ipynb)
+
+2、针对数据集进行了预处理，随机drop了一些数据，将预选数据分为training set和validation set
+* [split](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/ship-detection/split.ipynb)
