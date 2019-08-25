@@ -9,7 +9,7 @@ def IoU(y_true, y_pred, eps=1e-6):
         return IoU(1 - y_true, 1 - y_pred)
     intersection = K.sum(y_true * y_pred, axis=[1, 2, 3])
     union = K.sum(y_true, axis=[1, 2, 3]) + K.sum(y_pred, axis=[1, 2, 3]) - intersection
-    return -K.mean((intersection + eps) / (union + eps), axis=0)
+    return 1 - K.mean((intersection + eps) / (union + eps), axis=0)
 
 
 def Unet(input_shape=(512, 512, 3)):
@@ -60,7 +60,7 @@ def Unet(input_shape=(512, 512, 3)):
     output = Conv2D(1, (1, 1), activation='sigmoid')(c9)
 
     model = models.Model(inputs=[input], outputs=[output])
-    model.compile(optimizer=Adam(lr=0.0001), loss=IoU, metrics=['binary_accuracy'])
+    model.compile(optimizer=Adam(lr=0.0001), loss=IoU)
 
     return model
 
