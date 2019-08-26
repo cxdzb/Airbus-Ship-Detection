@@ -14,3 +14,9 @@
 
 2、针对数据集进行了预处理，随机drop了一些数据，将预选数据分为training set和validation set
 * [split](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/ship-detection/split.ipynb)
+### 2019.08.25
+1、学习了第一个卷积神经网络LeNet的相关知识<br>
+2、用Pytorch实现了简单的LeNet-5并完成了可视化工作
+* [LeNet-5](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/ship-detection/Bonus/LeNet-5.ipynb)
+> * 亟待学习卷积核的工作机理并给出一般卷积核的选择规律
+> * 继续巩固神经网络的相关知识及搭建工作，实现一个最基本的ResNet-34模型并了解相关机理
