@@ -20,3 +20,7 @@
 * [LeNet-5](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/ship-detection/Bonus/LeNet-5.ipynb)
 > * 亟待学习卷积核的工作机理并给出一般卷积核的选择规律
 > * 继续巩固神经网络的相关知识及搭建工作，实现一个最基本的ResNet-34模型并了解相关机理
+### 2019.08.26
+1、研读了ResNet的相关论文
+* [ResNet-paper](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/relevent/ResNet学习笔记.md)
+> * 关于神经网络传递中的误差累积问题，待研究
