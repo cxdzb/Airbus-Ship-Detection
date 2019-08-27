@@ -14,12 +14,16 @@ def IoU(y_true, y_pred, eps=1e-6):
     return 1 - K.mean((intersection + eps) / (union + eps), axis=0)
 
 
-model = load_model("5_32_20.h5", custom_objects={'IoU': IoU})
+model = load_model("5_64_50.h5", custom_objects={'IoU': IoU})
 
 results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
-x, y_true = rle_to_array(Image.open(os.getcwd() + "\\data\\0af984fcd.jpg"),
-                         results["EncodedPixels"][results["ImageId"] == "0af984fcd.jpg"])
+x, y_true = rle_to_array(Image.open(os.getcwd() + "\\data\\0a99243c0.jpg"),
+                         results["EncodedPixels"][results["ImageId"] == "0a99243c0.jpg"])
 x = x.reshape(1, 768, 768, 3) / 255
 y_pre = model.predict(x)[0]
 array_to_image(y_true * 255, (768, 768))
 array_to_image(y_pre * 255, (768, 768))
+
+intersection = (y_true * y_pre).sum()
+union = y_true.sum() + y_pre.sum()
+print(intersection, union, intersection / (union - intersection))

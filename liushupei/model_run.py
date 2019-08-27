@@ -13,8 +13,8 @@ from liushupei.model.model_build import Unet
 
 model = Unet(input_shape=(768, 768, 3))
 
-history = model.fit_generator(train_gen, steps_per_epoch=32, epochs=30, validation_data=val_gen,
+history = model.fit_generator(train_gen, steps_per_epoch=128, epochs=5, validation_data=val_gen,
                               validation_steps=1).history
-model.save("5_32_30.h5")
+model.save("5_128_5.h5")
 
 draw_loss(history["loss"], history["val_loss"])
