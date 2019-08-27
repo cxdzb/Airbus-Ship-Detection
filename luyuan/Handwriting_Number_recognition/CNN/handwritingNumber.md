@@ -21,7 +21,7 @@ created by Lu Yuan, August 24th, 2019
 6. pooling layer 2: max pooling, filter is 2*2. After this, we will get a 7*7*32 matrix
 7. fully connected layer: transform former matrix to a column vector as the input of softmax
 
-## Super parameters
+## Hyper parameters
 1. epoch (times of training data) is 1, for saving resource
 2. mini batch size is 50
 3. learning rate is 0.001
