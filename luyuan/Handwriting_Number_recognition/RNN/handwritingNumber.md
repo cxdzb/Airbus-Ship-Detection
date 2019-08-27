@@ -7,7 +7,7 @@ created by Lu Yuan, August 24th, 2019
 
 ## Main Steps
 1. Download dataset from MNIST
-2. Define class RNN(recurrent neural network)
+2. Define class RNN(recurrent neural network), whicn contains a LSTM (Long Short Term Memory) layer
 3. train
 
 ## Super parameters
@@ -19,3 +19,4 @@ created by Lu Yuan, August 24th, 2019
 ## Result 
 1. The accuracy arrives 97% finally and the 10 test example are all predicted correctly
 ![screen ](screencut/1.png)
+2. CNN do better than RNN in picture recognition
