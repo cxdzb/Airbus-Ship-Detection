@@ -18,3 +18,9 @@ created by Lu Yuan, August 23rd, 2019
 4.  Learn the theory of object location and YOLO (You only look once)
 
 #### August 27th, 2019
+1. Learn the theory of resNet (residual network)
+2. Learn the basic structure of 4 kinds of resNet (resNet18, resNet34, resNet50, resNet152)  
+3. Learn how to manage version by git
+ 
+
+#### August 28th, 2019
