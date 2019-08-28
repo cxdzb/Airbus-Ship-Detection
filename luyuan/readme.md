@@ -24,3 +24,5 @@ created by Lu Yuan, August 23rd, 2019
  
 
 #### August 28th, 2019
+1. Read the paper "Deep Residual Learning for Image Recognition"
+2. Learn how do a Neural Network work from a video made by 3Blue1Brown
