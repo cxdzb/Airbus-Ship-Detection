@@ -2,30 +2,30 @@ from PIL import Image
 import numpy as np
 
 
-def rle_to_array(img, rles):
-    width, height = img.size
-    img_copy = Image.new('L', (width, height))
-    pixdata = img_copy.load()
-
-    for rle in rles.values:
-        rle = rle.split(' ')
-        masks = []
-        for i in range(0, len(rle), 2):
-            for j in range(int(rle[i + 1])):
-                masks.append(int(rle[i]) + j)
-
-        index = 0
-        for i in range(width):
-            for j in range(height):
-                if index < len(masks) and i * height + j == masks[index]:
-                    pixdata[i, j] = 1
-                    index += 1
-                elif pixdata[i, j] != 1:
-                    pixdata[i, j] = 0
-
-    data1, data2 = img.getdata(), img_copy.getdata()
-    data1, data2 = np.asarray(data1).reshape((width, height, 3)), np.asarray(data2).reshape((width, height, 1))
-    return [data1, data2]
+# def rle_to_array(img, rles):
+#     width, height = img.size
+#     img_copy = Image.new('L', (width, height))
+#     pixdata = img_copy.load()
+#
+#     for rle in rles.values:
+#         rle = rle.split(' ')
+#         masks = []
+#         for i in range(0, len(rle), 2):
+#             for j in range(int(rle[i + 1])):
+#                 masks.append(int(rle[i]) + j)
+#
+#         index = 0
+#         for i in range(width):
+#             for j in range(height):
+#                 if index < len(masks) and i * height + j == masks[index]:
+#                     pixdata[i, j] = 1
+#                     index += 1
+#                 elif pixdata[i, j] != 1:
+#                     pixdata[i, j] = 0
+#
+#     data1, data2 = img.getdata(), img_copy.getdata()
+#     data1, data2 = np.asarray(img).reshape((width, height, 3)), np.asarray(img_copy).reshape((width, height, 1))
+#     return [data1, data2]
 
 
 def array_to_image(array, shape):
@@ -36,3 +36,27 @@ def array_to_image(array, shape):
             pixdata[i, j] = tuple(array[j][i])
 
     img.show()
+
+
+def rle_to_array(img, rles):
+    x = np.asarray(img).reshape((768, 768, 3))
+    y = np.zeros(768 * 768, dtype=np.uint8)
+
+    for rle in rles.values:
+        rle = rle.split(' ')
+        starts, lengths = [np.asarray(x, dtype=int) for x in (rle[0:][::2], rle[1:][::2])]
+        starts -= 1
+        ends = starts + lengths
+        for s, e in zip(starts, ends):
+            y[s:e] = 1
+
+    y=y.reshape((768,768)).T.reshape((768,768,1))
+    return x,y
+
+
+# import pandas as pd
+#
+# results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
+# img = Image.open(r"E:\DataSet\airbus-ship-detection\ship\0aea263bb.jpg")
+# mask = results["EncodedPixels"][results["ImageId"] == "0aea263bb.jpg"]
+# rle_to_array(img, mask)

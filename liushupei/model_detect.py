@@ -14,7 +14,7 @@ def IoU(y_true, y_pred, eps=1e-6):
     return 1 - K.mean((intersection + eps) / (union + eps), axis=0)
 
 
-model = load_model("5_64_50.h5", custom_objects={'IoU': IoU})
+model = load_model("2_128_3.h5", custom_objects={'IoU': IoU})
 
 results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
 x, y_true = rle_to_array(Image.open(os.getcwd() + "\\data\\0a99243c0.jpg"),
