@@ -4,34 +4,44 @@ from keras.optimizers import *
 from keras import backend as K
 
 
-def IoU(y_true, y_pred, eps=1e-6):
+def IoU(y_true, y_pred):
     if K.max(y_true) == 0.0:
         return IoU(1 - y_true, 1 - y_pred)
     intersection = K.sum(y_true * y_pred, axis=[1, 2, 3])
     union = K.sum(y_true, axis=[1, 2, 3]) + K.sum(y_pred, axis=[1, 2, 3]) - intersection
-    return 1 - K.mean((intersection + eps) / (union + eps), axis=0)
+    return 1 - K.mean(intersection / union, axis=0)
 
 
 def Unet(input_shape=(512, 512, 3)):
     input = Input(input_shape)
     c1 = Conv2D(8, (3, 3), activation='relu', padding='same')(input)
+    c1 = BatchNormalization()(c1)
     c1 = Conv2D(8, (3, 3), activation='relu', padding='same')(c1)
+    c1 = BatchNormalization()(c1)
     p1 = MaxPooling2D((2, 2))(c1)
 
     c2 = Conv2D(16, (3, 3), activation='relu', padding='same')(p1)
+    c2 = BatchNormalization()(c2)
     c2 = Conv2D(16, (3, 3), activation='relu', padding='same')(c2)
+    c2 = BatchNormalization()(c2)
     p2 = MaxPooling2D((2, 2))(c2)
 
     c3 = Conv2D(32, (3, 3), activation='relu', padding='same')(p2)
+    c3 = BatchNormalization()(c3)
     c3 = Conv2D(32, (3, 3), activation='relu', padding='same')(c3)
+    c3 = BatchNormalization()(c3)
     p3 = MaxPooling2D((2, 2))(c3)
 
     c4 = Conv2D(64, (3, 3), activation='relu', padding='same')(p3)
+    c4 = BatchNormalization()(c4)
     c4 = Conv2D(64, (3, 3), activation='relu', padding='same')(c4)
+    c4 = BatchNormalization()(c4)
     p4 = MaxPooling2D((2, 2))(c4)
 
     c5 = Conv2D(128, (3, 3), activation='relu', padding='same')(p4)
+    c5 = BatchNormalization()(c5)
     c5 = Conv2D(128, (3, 3), activation='relu', padding='same')(c5)
+    c5 = BatchNormalization()(c5)
 
     u1 = UpSampling2D((2, 2))(c5)
     c6 = Conv2D(64, (2, 2), activation='relu', padding='same')(u1)
@@ -61,7 +71,6 @@ def Unet(input_shape=(512, 512, 3)):
 
     model = models.Model(inputs=[input], outputs=[output])
     model.compile(optimizer=Adam(lr=0.0001), loss=IoU)
-
     return model
 
 # Unet()
