@@ -24,3 +24,7 @@
 1、研读了ResNet的相关论文
 * [ResNet-paper](https://github.com/plumprc/airbus-ship-detection/tree/master/lizhe/relevent/ResNet学习笔记.md)
 > * 关于神经网络传递中的误差累积问题，待研究
+
+### 2019.08.28
+1、利用github-page搭建了自己的blog用以存放之后的tutorial
+* [plum's blog](https://plumprc.github.io/)
