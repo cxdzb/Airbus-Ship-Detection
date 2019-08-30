@@ -2,7 +2,10 @@ from liushupei.preprocess.data_deal import rle_to_array
 import numpy as np
 from PIL import Image
 
-def generator(imgs, results, batch_size):
+
+def generator(imgs, results, batch_size, seed=None):
+    if seed:
+        np.random.seed(seed)
     ImageId, EncodedPixels = results["ImageId"], results["EncodedPixels"]
     while True:
         samples = np.random.choice(imgs, size=batch_size)
