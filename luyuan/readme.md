@@ -33,4 +33,8 @@ created by Lu Yuan, August 23rd, 2019
 3. Read the paper of FCN, RCNN, Fast-RCNN, Faster-RCNN (in the folder paper)
 
 #### August 30th, 2019
-1. 
+1. Compare the difference between RCN, Fast-RCNN, Faster-RCNN
+2. Read other related paper (in the folder paper)
+
+
+#### August 31st, 2019
