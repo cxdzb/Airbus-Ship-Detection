@@ -31,3 +31,10 @@ created by Lu Yuan, August 23rd, 2019
 1. Learn the basic of Semantic Segmentation
 2. Read the paper of Unet (U-Net: Convolutional Networks for Biomedical Image Segmentation)
 3. Read the paper of FCN, RCNN, Fast-RCNN, Faster-RCNN (in the folder paper)
+
+#### August 30th, 2019
+1. Compare the difference between RCN, Fast-RCNN, Faster-RCNN
+2. Read other related paper (in the folder paper)
+
+
+#### August 31st, 2019
