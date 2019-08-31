@@ -26,3 +26,15 @@ created by Lu Yuan, August 23rd, 2019
 #### August 28th, 2019
 1. Read the paper "Deep Residual Learning for Image Recognition"
 2. Learn how do a Neural Network work from a video made by 3Blue1Brown
+
+#### August 29th, 2019
+1. Learn the basic of Semantic Segmentation
+2. Read the paper of Unet (U-Net: Convolutional Networks for Biomedical Image Segmentation)
+3. Read the paper of FCN, RCNN, Fast-RCNN, Faster-RCNN (in the folder paper)
+
+#### August 30th, 2019
+1. Compare the difference between RCN, Fast-RCNN, Faster-RCNN
+2. Read other related paper (in the folder paper)
+
+
+#### August 31st, 2019
