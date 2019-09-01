@@ -14,11 +14,11 @@ def IoU(y_true, y_pred):
     return 1 - K.mean(intersection / union, axis=0)
 
 
-model = load_model("4_512_5.h5", custom_objects={'IoU': IoU})
+model = load_model("4_128_5.h5", custom_objects={'IoU': IoU})
 
 results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
-x, y_true = rle_to_array(Image.open(os.getcwd() + "\\data\\0af984fcd.jpg"),
-                         results["EncodedPixels"][results["ImageId"] == "0af984fcd.jpg"])
+x, y_true = rle_to_array(Image.open(os.getcwd() + "\\data\\0a1a7f395.jpg"),
+                         results["EncodedPixels"][results["ImageId"] == "0a1a7f395.jpg"])
 x = x.reshape(1, 768, 768, 3) / 255
 y_pre = model.predict(x)[0]
 # y_pre[y_pre<0.0001]=0

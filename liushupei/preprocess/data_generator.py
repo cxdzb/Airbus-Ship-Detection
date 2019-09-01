@@ -11,7 +11,7 @@ def generator(imgs, results, batch_size, seed=None):
         samples = np.random.choice(imgs, size=batch_size)
         X, Y = [], []
         for s in samples:
-            img = Image.open(r"E:\DataSet\airbus-ship-detection\ship" + "\\" + s)
+            img = Image.open(r"E:\DataSet\airbus-ship-detection\balance_train_data" + "\\" + s)
             rles = EncodedPixels[ImageId == s]
             x, y = rle_to_array(img, rles)
             X.append(x)

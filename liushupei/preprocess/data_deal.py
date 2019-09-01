@@ -17,6 +17,8 @@ def rle_to_array(img, rles):
     y = np.zeros(768 * 768, dtype=np.uint8)
 
     for rle in rles.values:
+        if rle is np.nan:
+            break
         rle = rle.split(' ')
         starts, lengths = [np.asarray(x, dtype=int) for x in (rle[0:][::2], rle[1:][::2])]
         starts -= 1
@@ -30,6 +32,7 @@ def rle_to_array(img, rles):
 # import pandas as pd
 #
 # results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
-# img = Image.open(r"E:\DataSet\airbus-ship-detection\ship\0aea263bb.jpg")
-# mask = results["EncodedPixels"][results["ImageId"] == "0aea263bb.jpg"]
-# rle_to_array(img, mask)
+# img = Image.open(r"E:\DataSet\airbus-ship-detection\balance_train_data\000f1f959.jpg")
+# mask = results["EncodedPixels"][results["ImageId"] == "000f1f959.jpg"]
+# a=rle_to_array(img, mask)[1]
+# array_to_image(a,a.shape)
