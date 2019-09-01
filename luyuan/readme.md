@@ -36,5 +36,6 @@ created by Lu Yuan, August 23rd, 2019
 1. Compare the difference between RCN, Fast-RCNN, Faster-RCNN
 2. Read other related paper (in the folder paper)
 
-
 #### August 31st, 2019
+1. Make a deeper comparsion among RCN, Fast-RCNN, Faster-RCNN
+2. Read other related paper
