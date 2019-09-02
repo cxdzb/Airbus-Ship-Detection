@@ -43,3 +43,7 @@ created by Lu Yuan, August 23rd, 2019
 #### September 1st, 2019
 1. Set up a Unet model by pytorch
 2. Learn how to do with data sets
+
+#### September 2nd, 2019
+1. Learn the basic of RLE encode
+2. Implement the basic visualization of data sets, try to handle the data sets
