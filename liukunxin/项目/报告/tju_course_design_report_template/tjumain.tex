@@ -35,12 +35,14 @@
 	\titleformat{\chapter}{\centering\xiaosan\hei}{\chaptername}{2em}{} % 恢复chapter标题格式要求
 
 	%%%%%% 这里是正文，每个文件对应正文中的一章 %%%%%%
-	\include{body/intros}
-	\include{body/figures}
-	\include{body/tables}
-	\include{body/equations}
-	\include{body/others}
-	\include{body/conclusion}
+	\newcommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}} % pandoc need
+	\include{body/preprocessing}
+	%\include{body/intros}
+	%\include{body/figures}
+	%\include{body/tables}
+	%\include{body/equations}
+	%\include{body/others}
+	%\include{body/conclusion}
 
 	% \clearpage
 
