@@ -13,6 +13,6 @@ val_gen = generator(imgs, results, 4, seed=1)
 model = Unet(input_shape=(768, 768, 3))
 history = model.fit_generator(train_gen, steps_per_epoch=128, epochs=5, \
                               validation_data=val_gen, validation_steps=10).history
-model.save("4_128_5.h5")
+model.save("4_128_5_3.h5")
 
 draw_loss(history["loss"], history["val_loss"])
