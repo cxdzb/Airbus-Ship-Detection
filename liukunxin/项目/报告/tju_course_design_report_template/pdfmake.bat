@@ -1,3 +1,7 @@
+@echo off
+chcp 65001
+cls
+
 set ARTICLE=tjumain
 latex -synctex=1 %ARTICLE%
 bibtex %ARTICLE%
