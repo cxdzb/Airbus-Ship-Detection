@@ -99,7 +99,7 @@ def masks_as_image(in_mask_list):
 
 以上代码包含了RLE格式的编码、解码，以及将RLE格式转换成一张图像。
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.6\linewidth]{body/preprocessing_pic/1}
 \caption{RLE解码后的图像}
@@ -179,7 +179,7 @@ unique_img_ids.sample(5)
 119822  9f5ef085c.jpg   0       0.0         [0.0]           186.836914
 \end{verbatim}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\linewidth]{body/preprocessing_pic/3}
 \caption{文件大小分布图}
@@ -220,7 +220,7 @@ train_df['ships'].hist()
 
 结果如图\ref{fig::preprocessing4}，可以看出无船的图像数量明显多于有船的图像的数量，有少量船的图像数量明显多于有多数船的图像数量，这就导致一个问题------数据不平衡。
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\linewidth]{body/preprocessing_pic/4}
 \caption{船只分布图}
@@ -247,7 +247,7 @@ balanced_train_df = train_df.groupby(
 balanced_train_df['ships'].hist(bins=np.arange(10))
 \end{lstlisting}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\linewidth]{body/preprocessing_pic/5}
 \caption{处理后船只分布图}
@@ -313,7 +313,7 @@ ax3.set_title('Outlined Ships')
 fig.savefig('overview.png')
 \end{lstlisting}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{body/preprocessing_pic/6}
 \caption{卫星图像及标注图像}
@@ -440,7 +440,7 @@ x (4, 768, 768, 3) float32 0.0 1.0
 y (4, 768, 768, 1) float32 0.0 1.0
 \end{lstlisting}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=1\linewidth]{body/preprocessing_pic/7}
 \caption{数据集增强后的图像}
