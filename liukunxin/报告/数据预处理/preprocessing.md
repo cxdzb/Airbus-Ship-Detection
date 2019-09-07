@@ -4,16 +4,16 @@
 
 根据我们得到的卫星图像船舶识别数据集，文件主要分为四个部分：
 
-1. sample_submission_v2.csv
-2. test_v2
-3. train_ship_segmentations_v2.csv
-4. train_v2
+- sample_submission_v2.csv
+- test_v2
+- train_ship_segmentations_v2.csv
+- train_v2
 
 分别对应样本提交集、测试集、验证集、训练集。
 
 训练集约有200000张768x768的卫星船舶图像，近30G大小。
 
-查看图像张数代码：
+以下代码用于查看图像张数：
 
     masks = pd.read_csv(os.path.join('../input/airbus-ship-detection/',
                                     'train_ship_segmentations_v2.csv'))
@@ -21,7 +21,7 @@
     print(masks['ImageId'].value_counts().shape[0])
     masks.head()
 
-结果如下
+结果如下：
 
     231723 masks found
     192556
@@ -34,9 +34,7 @@
 
 ## RLE编码
 
-从上面代码我们可以看到train_ship_segmentations_v2.csv是一个表格，表格有两列，分别是图像id和编码信息，这个编码方式是为RLE，英文名为run-length encoding，翻译为游程编码，又译行程长度编码，又称变动长度编码法（run coding），在控制论中对于二值图像而言是一种编码方法，对连续的黑、白像素数(游程)以不同的码字进行编码。游程编码是一种简单的非破坏性资料压缩法，其好处是加压缩和解压缩都非常快。其方法是计算连续出现的资料长度压缩之。
-
-具体来说，RLE编码对图像每个像素点进行编号，用一个二元组(id,length)表示第id个像素点及往后走length长度的像素点都被标记了。这样编码可以大大节约内存，可以准确表示船舶被标注的位置。
+从上面代码我们可以看到train_ship_segmentations_v2.csv是一个表格，表格有两列，分别是图像id和编码信息，这个编码方式是为RLE，英文名为run-length encoding，翻译为游程编码，又译行程长度编码，又称变动长度编码法（run coding），在控制论中对于二值图像而言是一种编码方法，对连续的黑、白像素数(游程)以不同的码字进行编码。游程编码是一种简单的非破坏性资料压缩法，其好处是加压缩和解压缩都非常快。其方法是计算连续出现的资料长度压缩之。具体来说，RLE编码对图像每个像素点进行编号，用一个二元组(id,length)表示第id个像素点及往后走length长度的像素点都被标记了。这样编码可以大大节约内存，可以准确表示船舶被标注的位置。
 
 ### RLE解码
 
@@ -80,7 +78,7 @@
 
 以上代码包含了RLE格式的编码、解码，以及将RLE格式转换成一张图像。
 
-//to-do
+![](preprocessing_pic/1.png)
 
 图展示了一张RLE解码后的图像，高亮部分表示被标记的船舶。
 
@@ -92,17 +90,15 @@
 
 本文发现，在文件大小小于50Kb时，较为频繁地出现无用的图像，所以在进行数据预处理的时候将文件大小小于50Kb的图像删掉了。
 
-//to-do
+![](preprocessing_pic/2.1.jpg)
+
+![](preprocessing_pic/2.2.jpg)
+
+![](preprocessing_pic/2.3.jpg)
 
 图展示了部分非法的图像。
 
 ## 分隔训练集和验证集
-
-以下代码实现了以下操作：
-
-1. 统计出每张卫星图片囊括的船数
-2. 将有船和无船的图片分开，剔除图片文件小于50kb的图片
-3. 查看文件大小的分布以及处理后的数据
 
     masks['ships'] = masks['EncodedPixels'].map(lambda c_row: 1 if isinstance(c_row, str) else 0)
     unique_img_ids = masks.groupby('ImageId').agg({'ships': 'sum'}).reset_index()
@@ -117,6 +113,12 @@
     masks.drop(['ships'], axis=1, inplace=True)
     unique_img_ids.sample(5)
 
+以上代码实现了以下操作：
+
+1. 统计出每张卫星图片囊括的船数
+2. 将有船和无船的图片分开，剔除图片文件小于50kb的图片
+3. 查看文件大小的分布以及处理后的数据
+
 结果如下：
 
             ImageId	        ships	has_ship	has_ship_vec	file_size_kb
@@ -126,7 +128,7 @@
     129050	aba2ef0f5.jpg	9	    1.0	        [1.0]	        208.094727
     119822	9f5ef085c.jpg	0	    0.0	        [0.0]	        186.836914
 
-//to-do
+![](preprocessing_pic/3.png)
 
 图展示了处理后文件大小的分布图，可以看出文件大小较为均匀地分布在120Kb左右。
 
@@ -156,11 +158,11 @@
 
 结果如图，可以看出无船的图像数量明显多于有船的图像的数量，有少量船的图像数量明显多于有多数船的图像数量，这就导致一个问题——数据不平衡。
 
-//to-do
+![](preprocessing_pic/4.png)
 
-数据不平衡对模型训练造成的影响。//to-do
+所谓的不平衡数据集指的是数据集各个类别的样本量极不均衡。以二分类问题为例，假设正类的样本数量远大于负类的样本数量，通常情况下通常情况下把多数类样本的比例接近100:1这种情况下的数据称为不平衡数据。不平衡数据的学习即需要在分布不均匀的数据集中学习到有用的信息。
 
-本文将对训练数据进行重采样，代码如下：
+为了对数据集进行平衡化，本文将对训练数据进行重采样，即对图片数量多的样本进行欠采样，对样本数量少的样本进行过采样，代码如下：
 
     train_df['grouped_ship_count'] = train_df['ships'].map(lambda x: (x+1)//2).clip(0, 7)
     def sample_ships(in_df, base_rep_val=1500):
@@ -172,11 +174,9 @@
     balanced_train_df = train_df.groupby('grouped_ship_count').apply(sample_ships)
     balanced_train_df['ships'].hist(bins=np.arange(10))
 
-采样后船只分布情况如图：
+![](preprocessing_pic/5.png)
 
-//to-do
-
-可以看出，船只数量得到了较为均匀的分布，将更有助于训练结果。
+采样后船只分布情况如图，可以看出，船只数量得到了较为均匀的分布，将更有助于训练结果。
 
 ## 数据生成器
 
@@ -229,11 +229,9 @@
     ax3.set_title('Outlined Ships')
     fig.savefig('overview.png')
 
-结果如图
+![](preprocessing_pic/6.png)
 
-//to-do
-
-其中图一表示了卫星图像原图像，图二表示了在卫星图像的船只标注结果，图三表示了卫星图像原图像与标注结果相结合的图像。
+结果如图，其中图一表示了卫星图像原图像，图二表示了在卫星图像的船只标注结果，图三表示了卫星图像原图像与标注结果相结合的图像。
 
 以下代码用于生成验证集
 
@@ -320,6 +318,6 @@
     x (4, 768, 768, 3) float32 0.0 1.0
     y (4, 768, 768, 1) float32 0.0 1.0
 
-//to-do
+![](preprocessing_pic/7.png)
 
-如图，可以看出图像被处理过的痕迹。
+结果如图，可以看出图像被处理过的痕迹。
