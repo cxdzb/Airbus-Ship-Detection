@@ -94,7 +94,8 @@ def Unet(input_shape=(512, 512, 3)):
     output = Conv2D(1, (1, 1), activation='sigmoid')(c9)
 
     model = models.Model(inputs=[input], outputs=[output])
-    model.compile(optimizer=Adam(lr=0.0001), loss=dice_p_bce)
+    model.compile(optimizer=Adam(lr=0.0001), loss=IoU)
+    # print(model.summary())
     return model
 
 # Unet()

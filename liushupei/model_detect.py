@@ -33,15 +33,15 @@ def IoU(y_true, y_pred):
 #     return 1e-3 * binary_crossentropy(in_gt, in_pred) - dice_coef(in_gt, in_pred)
 
 
-model = load_model("4_128_5.h5", custom_objects={'IoU': IoU})
+model = load_model("5_32_10.h5", custom_objects={'IoU': IoU})
 
 results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
-x, y_true = rle_to_array(Image.open(os.getcwd()+"\\data\\0a76d7f1d.jpg"),
-                         results["EncodedPixels"][results["ImageId"] == "0a76d7f1d.jpg"])
+x, y_true = rle_to_array(Image.open(os.getcwd()+"\\data\\0a863a4f8.jpg"),
+                         results["EncodedPixels"][results["ImageId"] == "0a863a4f8.jpg"])
 x = x.reshape(1, 768, 768, 3) / 255
 y_pre = model.predict(x)[0]
-# y_pre[y_pre<0.0001]=0
-# y_pre[y_pre>=0.0001]=1
+y_pre[y_pre<1]=0
+y_pre[y_pre>=1]=1
 array_to_image(y_true * 255, (768, 768))
 array_to_image(y_pre * 255, (768, 768))
 
