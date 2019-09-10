@@ -35,7 +35,7 @@ def IoU(y_true, y_pred):
 
 model = load_model("5_32_10.h5", custom_objects={'IoU': IoU})
 
-results = pd.read_csv(r"E:\DataSet\airbus-ship-detection\segmentations.csv")
+results = pd.read_csv(os.getcwd()+"\\data\\segmentations.csv")
 x, y_true = rle_to_array(Image.open(os.getcwd()+"\\data\\0a863a4f8.jpg"),
                          results["EncodedPixels"][results["ImageId"] == "0a863a4f8.jpg"])
 x = x.reshape(1, 768, 768, 3) / 255
