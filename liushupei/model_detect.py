@@ -33,7 +33,7 @@ def IoU(y_true, y_pred):
 #     return 1e-3 * binary_crossentropy(in_gt, in_pred) - dice_coef(in_gt, in_pred)
 
 
-model = load_model("5_32_10.h5", custom_objects={'IoU': IoU})
+model = load_model("4_128_5.h5", custom_objects={'IoU': IoU})
 
 results = pd.read_csv(os.getcwd()+"\\data\\segmentations.csv")
 x, y_true = rle_to_array(Image.open(os.getcwd()+"\\data\\0a863a4f8.jpg"),
